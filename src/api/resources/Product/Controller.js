@@ -1,7 +1,7 @@
-import { ProductCategory } from './Model';
+import { Product } from './Model';
 import { validateRequestBody } from './utils';
 
-const entityName = 'Product Category';
+const entityName = 'Product';
 
 export default {
   async create(req, res) {
@@ -10,7 +10,7 @@ export default {
       if (validationErrors) {
         return res.status(421).send(validationErrors);
       }
-      const newRecord = await ProductCategory.create(requestParams);
+      const newRecord = await Product.create(requestParams);
       return res.send(newRecord);
     } catch (error) {
       return res.status(500).send(error);
@@ -18,7 +18,7 @@ export default {
   },
   async index(req, res) {
     try {
-      const records = await ProductCategory.find()
+      const records = await Product.find().populate('category', 'title');
       return res.send(records);
     } catch (error) {
       return res.status(500).send(error);
@@ -26,7 +26,7 @@ export default {
   },
   async show(req, res) {
     try {
-      const record = await ProductCategory.findById(req.params.id);
+      const record = await Product.findById(req.params.id).populate('category', 'title');
       if (!record) {
         return res.status(404).send({ error: `could not find ${entityName}` });
       }
@@ -37,7 +37,7 @@ export default {
   },
   async delete(req, res) {
     try {
-      const record = await ProductCategory.findOneAndRemove({ _id: req.params.id });
+      const record = await Product.findOneAndRemove({ _id: req.params.id });
       if (!record) {
         return res.status(404).send({ error: `could not find ${entityName}` });
       }
@@ -52,7 +52,7 @@ export default {
       if (validationErrors) {
         return res.status(421).send(validationErrors);
       }
-      const updatedRecord = await ProductCategory.findOneAndUpdate({ _id: req.params.id }, requestParams, { new: true });
+      const updatedRecord = await Product.findOneAndUpdate({ _id: req.params.id }, requestParams, { new: true });
       if (!updatedRecord) {
         return res.status(404).send({ error: `could not find ${entityName}` });
       }
