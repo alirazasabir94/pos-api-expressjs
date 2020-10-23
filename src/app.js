@@ -20,9 +20,7 @@ app.use('/api', restRouter);
 app.use(
   '/',
   swaggerUi.serve,
-  swaggerUi.setup(swaggerDocument, {
-    explorer: true,
-  })
+  swaggerUi.setup(swaggerDocument)
 );
 
 app.listen(PORT, () => {

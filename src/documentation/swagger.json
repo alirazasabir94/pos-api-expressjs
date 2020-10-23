@@ -12,6 +12,10 @@
       {
         "name": "ProductCategories",
         "description": "API for Product Categories Endpoints"
+      },
+      {
+        "name": "Products",
+        "description": "API for Products Endpoints"
       }
     ],
     "schemes": ["http","https"],
@@ -25,12 +29,12 @@
          "description" : "Create new Product Category in database",
          "parameters":[
            {
-             "name": "title",
+             "name": "ProductCategory",
              "description": "Category params to create new Product Category",
              "in": "body",
              "required": "true",
              "schema" : {
-               "$ref" : "#definitions/ProductCategories"
+               "$ref" : "#definitions/CreateUpdateProductCategories"
              }
            }
          ],
@@ -88,7 +92,7 @@
         "delete":{
           "tags": ["ProductCategories"],
           "summary": "API Endpoint to delete the Product Category",
-          "description" : "Delete song from the database",
+          "description" : "Delete Product Category from the database",
           "produces" : ["application/json"],
           "responses":{
             "200":{
@@ -105,11 +109,12 @@
           "description" : "Update the existing Product Category in database",
           "parameters":[
             {
-              "name": "song",
+              "name": "ProductCategory",
               "description": "Category params to update the Product Category",
               "in": "body",
+              "required": "true",
               "schema" : {
-                "$ref" : "#definitions/UpdateProductCategories"
+                "$ref" : "#definitions/CreateUpdateProductCategories"
               }
             }
           ],
@@ -123,11 +128,124 @@
             }
           }
         }
-      }
+      },
+
+
+
+      "/products":{
+        "post":{
+          "tags": ["Products"],
+          "summary": "API Endpoint for create Product",
+          "description" : "Create new Product in database",
+          "parameters":[
+            {
+              "name": "Product",
+              "description": "Product params to create new Product",
+              "in": "body",
+              "required": "true",
+              "schema" : {
+                "$ref" : "#definitions/CreateUpdateProducts"
+              }
+            }
+          ],
+          "produces" : ["application/json"],
+          "responses":{
+            "200":{
+              "description" : "New Product Created",
+              "schema": {
+               "$ref" : "#definitions/Products"
+              }
+            }
+          }
+        },
+        "get":{
+         "tags": ["Products"],
+         "summary": "API Endpoint to find all Products",
+         "description" : "Find all Products from the database",
+         "parameters":[],
+         "produces" : ["application/json"],
+         "responses":{
+           "200":{
+             "description" : "All the Products",
+             "schema": {
+              "$ref" : "#definitions/Products"
+             }
+           }
+         }
+       }
+       },
+       "/products/{id}":{
+         "parameters":[
+            {
+              "name" : "id",
+               "in": "path",
+               "required": "true",
+               "description": "id of the Product",
+               "type": "string"
+ 
+            }
+         ],
+         "get":{
+           "tags": ["Products"],
+           "summary": "API Endpoint to find single Product",
+           "description" : "Find one from the database",
+           "produces" : ["application/json"],
+           "responses":{
+             "200":{
+               "description" : "Product has found",
+               "schema": {
+                "$ref" : "#definitions/Products"
+               }
+             }
+           }
+         },
+         "delete":{
+           "tags": ["Products"],
+           "summary": "API Endpoint to delete the Product",
+           "description" : "Delete Product from the database",
+           "produces" : ["application/json"],
+           "responses":{
+             "200":{
+               "description" : "Product has deleted",
+               "schema": {
+                "$ref" : "#definitions/Products"
+               }
+             }
+           }
+         },
+         "put":{
+           "tags": ["Products"],
+           "summary": "API Endpoint for update Product",
+           "description" : "Update the existing Product in database",
+           "parameters":[
+             {
+               "name": "Product",
+               "description": "Product params to update the Product",
+               "in": "body",
+               "schema" : {
+                 "$ref" : "#definitions/CreateUpdateProducts"
+               }
+             }
+           ],
+           "produces" : ["application/json"],
+           "responses":{
+             "200":{
+               "description" : "Product Category has Updated",
+               "schema": {
+                "$ref" : "#definitions/ProductCategories"
+               }
+             }
+           }
+         }
+       }
     },
+
+
+
     "definitions":{
+
+
       "ProductCategories":{
-        "required": ["title"],
         "properties":{
           "_id": {
             "type" : "string"
@@ -137,12 +255,46 @@
           }
         }
       },
-      "UpdateProductCategories":{
+      "CreateUpdateProductCategories":{
+        "required": ["title"],
         "properties":{
           "title": {
             "type" : "string"
           }
         }
+      },
+
+
+      "Products":{
+        "properties":{
+          "_id": {
+            "type" : "string"
+          },
+          "title": {
+            "type" : "string"
+          },
+          "category": {
+            "type" : "object",
+            "properties":{
+              "title": {
+                "type" : "string"
+              }
+            }
+          }
+        }
+      },
+      "CreateUpdateProducts":{
+        "required": ["title", "category"],
+        "properties":{
+          "title": {
+            "type" : "string"
+          },
+          "category": {
+            "type" : "string"
+          }
+        }
       }
+
+
     }
 }

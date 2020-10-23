@@ -11,7 +11,9 @@ export default {
         return res.status(421).send(validationErrors);
       }
       const newRecord = await Product.create(requestParams);
-      return res.send(newRecord);
+      //: needs to be removed
+      const record = await Product.findById(newRecord._id).populate('category', 'title');
+      return res.send(record);
     } catch (error) {
       return res.status(500).send(error);
     }
