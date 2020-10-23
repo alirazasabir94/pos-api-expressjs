@@ -1,0 +1,148 @@
+{
+  "title" : "POS API Documentation",
+  "description" : "MUSIC API course for egghead",
+  "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "version": "1.0.0",
+    "host": "localhost:3006",
+    "basePath": "/api",
+    "tags": [
+      {
+        "name": "ProductCategories",
+        "description": "API for Product Categories Endpoints"
+      }
+    ],
+    "schemes": ["http","https"],
+    "consumes": ["application/json"],
+    "produces": ["application/json"],
+    "paths" :{
+      "/product_categories":{
+       "post":{
+         "tags": ["ProductCategories"],
+         "summary": "API Endpoint for create Product Category",
+         "description" : "Create new Product Category in database",
+         "parameters":[
+           {
+             "name": "title",
+             "description": "Category params to create new Product Category",
+             "in": "body",
+             "required": "true",
+             "schema" : {
+               "$ref" : "#definitions/ProductCategories"
+             }
+           }
+         ],
+         "produces" : ["application/json"],
+         "responses":{
+           "200":{
+             "description" : "New Product Category Created",
+             "schema": {
+              "$ref" : "#definitions/ProductCategories"
+             }
+           }
+         }
+       },
+       "get":{
+        "tags": ["ProductCategories"],
+        "summary": "API Endpoint to find all Product Categories",
+        "description" : "Find all Product Categories from the database",
+        "parameters":[],
+        "produces" : ["application/json"],
+        "responses":{
+          "200":{
+            "description" : "All the Product Categories",
+            "schema": {
+             "$ref" : "#definitions/ProductCategories"
+            }
+          }
+        }
+      }
+      },
+      "/product_categories/{id}":{
+        "parameters":[
+           {
+             "name" : "id",
+              "in": "path",
+              "required": "true",
+              "description": "id of the Product Category",
+              "type": "string"
+
+           }
+        ],
+        "get":{
+          "tags": ["ProductCategories"],
+          "summary": "API Endpoint to find single Product Category",
+          "description" : "Find one from the database",
+          "produces" : ["application/json"],
+          "responses":{
+            "200":{
+              "description" : "Product Category has found",
+              "schema": {
+               "$ref" : "#definitions/ProductCategories"
+              }
+            }
+          }
+        },
+        "delete":{
+          "tags": ["ProductCategories"],
+          "summary": "API Endpoint to delete the Product Category",
+          "description" : "Delete song from the database",
+          "produces" : ["application/json"],
+          "responses":{
+            "200":{
+              "description" : "Product Category has deleted",
+              "schema": {
+               "$ref" : "#definitions/ProductCategories"
+              }
+            }
+          }
+        },
+        "put":{
+          "tags": ["ProductCategories"],
+          "summary": "API Endpoint for update Product Category",
+          "description" : "Update the existing Product Category in database",
+          "parameters":[
+            {
+              "name": "song",
+              "description": "Category params to update the Product Category",
+              "in": "body",
+              "schema" : {
+                "$ref" : "#definitions/UpdateProductCategories"
+              }
+            }
+          ],
+          "produces" : ["application/json"],
+          "responses":{
+            "200":{
+              "description" : "Product Category has Updated",
+              "schema": {
+               "$ref" : "#definitions/ProductCategories"
+              }
+            }
+          }
+        }
+      }
+    },
+    "definitions":{
+      "ProductCategories":{
+        "required": ["title"],
+        "properties":{
+          "_id": {
+            "type" : "string"
+          },
+          "title": {
+            "type" : "string"
+          }
+        }
+      },
+      "UpdateProductCategories":{
+        "properties":{
+          "title": {
+            "type" : "string"
+          }
+        }
+      }
+    }
+}
