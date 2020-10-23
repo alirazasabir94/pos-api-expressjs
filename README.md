@@ -1,6 +1,6 @@
 ## Quick start
 
-1.  Make sure that you have Node v10 or above installed and mongodb running at `localhost:27017.
+1.  Make sure that you have Node v10 or above installed and mongodb running at `localhost:27017`</br>
 2.  Clone this repo using `git clone https://github.com/asifsabir5020/pos-api-expressjs.git`
 3.  Move to the appropriate directory: `cd pos-api-expressjs`.<br />
 4.  Run `npm install` or `yarn install` in order to install dependencies. <br />
